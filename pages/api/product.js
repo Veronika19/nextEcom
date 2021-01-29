@@ -4,5 +4,5 @@ import initDB from '../../helpers/initDB';
 initDB();
 export default (req, res) => {
   res.statusCode = 200;
-  res.json({ name: 'John Doe' });
+  res.json({ name: 'John Malik' });
 };

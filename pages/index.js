@@ -11,7 +11,6 @@ const Home = ({ products }) => {
         <title>Create Next App</title>
       </Head>
       <div className="rootcard">
-        <h2> Next Ecomm {process.env.NODE_ENV}</h2>
         {products.map((each) => {
           return (
             <div className="card" key={each._id}>

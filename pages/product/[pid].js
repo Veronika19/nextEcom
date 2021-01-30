@@ -63,43 +63,43 @@ const Product = ({ product }) => {
   );
 };
 
-export async function getServerSideProps(context) {
-  const {
-    params: { pid },
-  } = context;
-
-  const res = await fetch(`http://localhost:3000/api/product/${pid}`);
-  const data = await res.json();
-  console.log(data);
-  return {
-    props: { product: data }, // will be passed to the page component as props
-  };
-}
-
-// export async function getStaticProps(context) {
+// export async function getServerSideProps(context) {
 //   const {
 //     params: { pid },
 //   } = context;
 
-//   const res = await fetch(`${baseUrl}/api/product/${pid}`);
+//   const res = await fetch(`http://localhost:3000/api/product/${pid}`);
 //   const data = await res.json();
-//   // console.log(data);
+//   console.log(data);
 //   return {
 //     props: { product: data }, // will be passed to the page component as props
 //   };
 // }
 
-// export async function getStaticPaths() {
-//   const res = await fetch(`http://localhost:3000/api/product`);
-//   const products = await res.json();
+export async function getStaticProps(context) {
+  const {
+    params: { pid },
+  } = context;
 
-//   const paths = products.map((product) => ({
-//     params: { pid: product._id },
-//   }));
-//   return {
-//     paths,
-//     fallback: false, // See the "fallback" section below
-//   };
-// }
+  const res = await fetch(`${baseUrl}/api/product/${pid}`);
+  const data = await res.json();
+  // console.log(data);
+  return {
+    props: { product: data }, // will be passed to the page component as props
+  };
+}
+
+export async function getStaticPaths() {
+  const res = await fetch(`http://localhost:3000/api/product`);
+  const products = await res.json();
+
+  const paths = products.map((product) => ({
+    params: { pid: product._id },
+  }));
+  return {
+    paths,
+    fallback: false, // See the "fallback" section below
+  };
+}
 
 export default Product;

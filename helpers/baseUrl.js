@@ -1,5 +1,5 @@
 const baseUrl =
-  process.env.NODE_ENV === 'development'
+  process.env.NODE_ENV === 'production'
     ? 'https://next-ecom-delta.vercel.app'
     : 'http://localhost:3000';
 

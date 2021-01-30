@@ -11,6 +11,7 @@ const Home = ({ products }) => {
         <title>Create Next App</title>
       </Head>
       <div className="rootcard">
+        <h2> Next Ecomm</h2>
         {products.map((each) => {
           return (
             <div className="card" key={each._id}>
@@ -34,17 +35,7 @@ const Home = ({ products }) => {
   );
 };
 
-export async function getStaticProps() {
-  const res = await fetch(`${baseUrl}/api/product`);
-  const posts = await res.json();
-  // By returning { props: posts }, the Blog component
-  // will receive `posts` as a prop at build time
-  return {
-    props: { products: posts },
-  };
-}
-
-// export async function getServerSideProps() {
+// export async function getStaticProps() {
 //   const res = await fetch(`${baseUrl}/api/product`);
 //   const posts = await res.json();
 //   // By returning { props: posts }, the Blog component
@@ -53,5 +44,15 @@ export async function getStaticProps() {
 //     props: { products: posts },
 //   };
 // }
+
+export async function getServerSideProps() {
+  const res = await fetch(`${baseUrl}/api/product`);
+  const posts = await res.json();
+  // By returning { props: posts }, the Blog component
+  // will receive `posts` as a prop at build time
+  return {
+    props: { products: posts },
+  };
+}
 
 export default Home;

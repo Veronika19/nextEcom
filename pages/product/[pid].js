@@ -1,15 +1,33 @@
 import Head from 'next/head';
 import Image from 'next/image';
+import { useRouter } from 'next/router';
 import baseUrl from '../../helpers/baseUrl';
 
 import { useRef, useEffect } from 'react';
 
 const Product = ({ product }) => {
   const modalRef = useRef(); // creating a reference for the delete modal
+  const router = useRouter();
 
   useEffect(() => {
     M.Modal.init(modalRef.current);
   }, []);
+
+  const deletePro = async (id) => {
+    try {
+      const data = await fetch(`${baseUrl}/api/product/${id}`, { method: 'DELETE' });
+      const res = await data.json();
+      if (res._id === id) {
+        const instance = M.Modal.getInstance(modalRef.current);
+        instance.close();
+        router.push('/');
+      } else {
+        alert('error');
+      }
+    } catch (err) {
+      alert(err);
+    }
+  };
 
   const deleteModal = () => {
     // attaching out reference to modal
@@ -21,9 +39,19 @@ const Product = ({ product }) => {
         </div>
         <div className="modal-footer">
           <button
-            className="modal-close btn waves-effect waves-light #b71c1c red darken-4"
+            className="modal-close btn waves-effect waves-light yellow darken-3"
             type="submit"
             name="action"
+          >
+            Cancel
+            <i className="material-icons right">close</i>
+          </button>
+          &nbsp;&nbsp;
+          <button
+            className="btn waves-effect waves-light #b71c1c red darken-3"
+            type="submit"
+            name="action"
+            onClick={() => deletePro(product._id)}
           >
             Delete
             <i className="material-icons right">remove</i>
@@ -47,34 +75,20 @@ const Product = ({ product }) => {
         Add
         <i className="material-icons right">add</i>
       </button>
-      <div>
-        <button
-          data-target="modal1"
-          className="btn modal-trigger waves-effect waves-light #b71c1c red darken-4"
-          type="submit"
-          name="action"
-        >
-          Delete
-          <i className="material-icons right">remove</i>
-        </button>
-        {deleteModal()}
-      </div>
+      &nbsp;&nbsp;
+      <button
+        data-target="modal1"
+        className="btn modal-trigger waves-effect waves-light #b71c1c red darken-4"
+        type="submit"
+        name="action"
+      >
+        Delete
+        <i className="material-icons right">remove</i>
+      </button>
+      {deleteModal()}
     </>
   );
 };
-
-// export async function getServerSideProps(context) {
-//   const {
-//     params: { pid },
-//   } = context;
-
-//   const res = await fetch(`${baseUrl}/api/product/${pid}`);
-//   const data = await res.json();
-//   console.log(data);
-//   return {
-//     props: { product: data }, // will be passed to the page component as props
-//   };
-// }
 
 export async function getStaticProps(context) {
   const {

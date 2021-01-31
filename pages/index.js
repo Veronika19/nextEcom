@@ -15,7 +15,7 @@ const Home = ({ products }) => {
           return (
             <div className="card" key={each._id}>
               <div className="card-image">
-                <Image src={each.mediaUrl} width="330" height="220" />
+                <Image src={each.mediaUrl} width="330" height="220" alt={each.name} />
                 <span className="card-title">{each.name}</span>
               </div>
               <div className="card-content">

@@ -90,19 +90,6 @@ const Product = ({ product }) => {
   );
 };
 
-export async function getStaticProps(context) {
-  const {
-    params: { pid },
-  } = context;
-
-  const res = await fetch(`${baseUrl}/api/product/${pid}`);
-  const data = await res.json();
-  // console.log(data);
-  return {
-    props: { product: data }, // will be passed to the page component as props
-  };
-}
-
 export async function getServerSideProps(context) {
   const {
     params: { pid },
@@ -115,6 +102,19 @@ export async function getServerSideProps(context) {
     props: { product: data }, // will be passed to the page component as props
   };
 }
+
+// export async function getStaticProps(context) {
+//   const {
+//     params: { pid },
+//   } = context;
+
+//   const res = await fetch(`${baseUrl}/api/product/${pid}`);
+//   const data = await res.json();
+//   // console.log(data);
+//   return {
+//     props: { product: data }, // will be passed to the page component as props
+//   };
+// }
 
 // export async function getStaticPaths() {
 //   const res = await fetch(`${baseUrl}/api/product`);

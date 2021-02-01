@@ -113,6 +113,7 @@ export async function getStaticProps(context) {
   // console.log(data);
   return {
     props: { product: data }, // will be passed to the page component as props
+    revalidate: 1,
   };
 }
 

@@ -34,15 +34,15 @@ const Home = ({ products }) => {
   );
 };
 
-export async function getStaticProps() {
-  const res = await fetch(`${baseUrl}/api/product`);
-  const posts = await res.json();
-  // By returning { props: posts }, the Blog component
-  // will receive `posts` as a prop at build time
-  return {
-    props: { products: posts },
-  };
-}
+// export async function getStaticProps() {
+//   const res = await fetch(`${baseUrl}/api/product`);
+//   const posts = await res.json();
+//   // By returning { props: posts }, the Blog component
+//   // will receive `posts` as a prop at build time
+//   return {
+//     props: { products: posts },
+//   };
+// }
 
 // export async function getServerSideProps() {
 //   const res = await fetch(`${baseUrl}/api/product`);

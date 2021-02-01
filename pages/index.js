@@ -41,6 +41,7 @@ export async function getStaticProps() {
   // will receive `posts` as a prop at build time
   return {
     props: { products: posts },
+    revalidate: 1,
   };
 }
 

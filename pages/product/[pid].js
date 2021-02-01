@@ -95,7 +95,7 @@ export async function getServerSideProps(context) {
     params: { pid },
   } = context;
 
-  const res = await fetch(`${baseUrl}/api/product/${pid}`);
+  const res = await fetch(`/api/product/${pid}`);
   const data = await res.json();
   // console.log(data);
   return {

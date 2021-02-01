@@ -9,6 +9,12 @@ const Product = ({ product }) => {
   const modalRef = useRef(); // creating a reference for the delete modal
   const router = useRouter();
 
+  // If the page is not yet generated, this will be displayed
+  // initially until getStaticProps() finishes running
+  if (router.isFallback) {
+    return <div>Loading...</div>;
+  }
+
   useEffect(() => {
     M.Modal.init(modalRef.current);
   }, []);
@@ -126,7 +132,7 @@ export async function getStaticPaths() {
   }));
   return {
     paths,
-    fallback: false, // See the "fallback" section below
+    fallback: true, // See the "fallback" section below
   };
 }
 

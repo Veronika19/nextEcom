@@ -1,4 +1,4 @@
-import Validator from 'Validator';
+import validator from 'validator';
 import isEmpty from './is-empty';
 
 module.exports = function validateProduct(data) {
@@ -8,19 +8,19 @@ module.exports = function validateProduct(data) {
   data.mediaUrl = !isEmpty(data.mediaUrl) ? data.mediaUrl : '';
   data.description = !isEmpty(data.description) ? data.description : '';
 
-  if (Validator.isEmpty(data.name)) {
+  if (validator.isEmpty(data.name)) {
     errors.name = 'Product Name is required.';
   }
 
-  if (Validator.isEmpty(data.price)) {
+  if (validator.isEmpty(data.price)) {
     errors.price = 'Price is required.';
   }
 
-  if (Validator.isEmpty(data.mediaUrl)) {
+  if (validator.isEmpty(data.mediaUrl)) {
     errors.mediaUrl = 'Image is required.';
   }
 
-  if (Validator.isEmpty(data.description)) {
+  if (validator.isEmpty(data.description)) {
     errors.description = 'Description is required.';
   }
 

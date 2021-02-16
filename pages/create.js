@@ -99,9 +99,9 @@ const Create = () => {
           <input name="description" ref={register({ required: true })} />
           {errors.description && 'Please enter the description.'}
         </div>
-        <button class="btn waves-effect waves-light" type="submit" name="action">
+        <button className="btn waves-effect waves-light" type="submit" name="action">
           Submit
-          <i class="material-icons right">forward</i>
+          <i className="material-icons right">forward</i>
         </button>
       </form>
     </div>

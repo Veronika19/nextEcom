@@ -1,7 +1,7 @@
 import mongoose from 'mongoose';
 
 function initDB() {
-  console.log('=======', mongoose.connection.readyState);
+  // console.log('=======', mongoose.connection.readyState);
 
   if (mongoose.connection.readyState) {
     console.log('Already connected');

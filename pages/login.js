@@ -1,24 +1,27 @@
 import Head from 'next/head';
 import Link from 'next/link';
 import { useForm } from 'react-hook-form';
-import { useRouter } from 'next/router';
 import axios from 'axios';
-import cookie from 'js-cookie';
+import nookies, { setCookie } from 'nookies';
 
 import baseUrl from '../helpers/baseUrl';
 
 const Login = () => {
   const { register, handleSubmit, errors } = useForm();
-  const router = useRouter();
+
   const onSubmit = async (data) => {
     try {
       const res = await axios.post(`${baseUrl}/api/login`, data);
       const { token, msg } = res.data;
-      cookie.set('token', token);
+      setCookie(null, 'token', token);
       const successToast = M.toast({ html: `<div>${msg}</div>`, classes: 'green' });
       setTimeout(() => {
         successToast.dismiss();
-        router.push('/');
+        /** using javascript instead of router.push as,
+         * using push the layout header
+         * menu section were not hiding the login and register menu
+         * */
+        window.location.assign('/');
       }, 500);
     } catch (error) {
       let html = '';
@@ -62,5 +65,19 @@ const Login = () => {
     </div>
   );
 };
+
+export async function getServerSideProps(ctx) {
+  const cookies = nookies.get(ctx);
+  if (typeof cookies.token !== 'undefined') {
+    /** adding server side redirection */
+    if (ctx.res) {
+      ctx.res.writeHead(302, { Location: '/' });
+      ctx.res.end();
+    }
+  }
+  return {
+    props: {}, // will be passed to the page component as props
+  };
+}
 
 export default Login;

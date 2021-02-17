@@ -3,6 +3,7 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useForm } from 'react-hook-form';
 import axios from 'axios';
+import nookies from 'nookies';
 
 import baseUrl from '../helpers/baseUrl';
 
@@ -67,5 +68,19 @@ const Signup = () => {
     </div>
   );
 };
+
+export async function getServerSideProps(ctx) {
+  const cookies = nookies.get(ctx);
+  if (typeof cookies.token !== 'undefined') {
+    /** adding server side redirection */
+    if (ctx.res) {
+      ctx.res.writeHead(302, { Location: '/' });
+      ctx.res.end();
+    }
+  }
+  return {
+    props: {}, // will be passed to the page component as props
+  };
+}
 
 export default Signup;
